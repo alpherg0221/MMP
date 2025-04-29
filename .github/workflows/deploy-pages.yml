@@ -10,8 +10,11 @@ on:
         required: true
 
 jobs:
-  build:
+  build_and_deploy:
     runs-on: ubuntu-22.04
+    defaults:
+      run:
+        working-directory: ./web
     
     steps:
       - uses: actions/checkout@v4
@@ -23,15 +26,13 @@ jobs:
           cache: 'npm'
           
       - run: npm install
-        working-directory: web
 
       - run: npm run build
-        working-directory: web
 
       - uses: actions/configure-pages@v5
 
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: './web/dist'
+          path: './dist'
 
       - uses: actions/deploy-pages@v4
