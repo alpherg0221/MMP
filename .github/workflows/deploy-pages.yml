@@ -11,7 +11,16 @@ on:
 
 jobs:
   build_and_deploy:
+    permissions:
+      pages: write
+      id-token: write
+
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
     runs-on: ubuntu-22.04
+
     defaults:
       run:
         working-directory: ./web
